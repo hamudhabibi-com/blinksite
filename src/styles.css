@@ -1,0 +1,108 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Sora", sans-serif;
+  --font-sans: "Manrope", sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-glow: var(--primary-glow);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  --radius: 1rem;
+  --background: oklch(0.16 0.03 265);
+  --foreground: oklch(0.97 0.005 265);
+  --card: oklch(0.21 0.035 265);
+  --card-foreground: oklch(0.97 0.005 265);
+  --popover: oklch(0.21 0.035 265);
+  --popover-foreground: oklch(0.97 0.005 265);
+  --primary: oklch(0.74 0.18 55);
+  --primary-glow: oklch(0.82 0.16 70);
+  --primary-foreground: oklch(0.16 0.03 265);
+  --secondary: oklch(0.26 0.04 265);
+  --secondary-foreground: oklch(0.97 0.005 265);
+  --muted: oklch(0.26 0.04 265);
+  --muted-foreground: oklch(0.72 0.03 265);
+  --accent: oklch(0.3 0.05 265);
+  --accent-foreground: oklch(0.97 0.005 265);
+  --destructive: oklch(0.65 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.74 0.18 55);
+  --gradient-primary: linear-gradient(120deg, var(--primary), var(--primary-glow));
+  --shadow-glow: 0 0 60px -10px color-mix(in oklab, var(--primary) 70%, transparent);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+  h1, h2, h3 { font-family: var(--font-display); }
+}
+
+@utility text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility bg-gradient-primary { background: var(--gradient-primary); }
+@utility shadow-glow { box-shadow: var(--shadow-glow); }
+@utility pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--primary) 70%, transparent); }
+  50% { box-shadow: 0 0 0 14px transparent; }
+}
+
+:root[data-accent="blue"] { --primary: oklch(0.72 0.16 250); --primary-glow: oklch(0.82 0.12 240); --ring: var(--primary); }
+:root[data-accent="green"] { --primary: oklch(0.76 0.16 155); --primary-glow: oklch(0.86 0.12 150); --ring: var(--primary); }
+:root[data-accent="pink"] { --primary: oklch(0.75 0.17 355); --primary-glow: oklch(0.85 0.12 350); --ring: var(--primary); }
+:root[data-theme="light"] {
+  --background: oklch(0.98 0.005 265); --foreground: oklch(0.2 0.03 265);
+  --card: oklch(1 0 0); --card-foreground: var(--foreground);
+  --popover: var(--card); --popover-foreground: var(--foreground);
+  --secondary: oklch(0.93 0.015 265); --secondary-foreground: var(--foreground);
+  --muted: var(--secondary); --muted-foreground: oklch(0.45 0.03 265);
+  --accent: oklch(0.9 0.025 265); --accent-foreground: var(--foreground);
+  --border: oklch(0.2 0.03 265 / 15%); --input: var(--border);
+}
+.swatch-orange { background: oklch(0.74 0.18 55); }
+.swatch-blue { background: oklch(0.72 0.16 250); }
+.swatch-green { background: oklch(0.76 0.16 155); }
+.swatch-pink { background: oklch(0.75 0.17 355); }
+@layer base {
+  input, textarea, select { min-width: 0; }
+  h1, h2, h3, p, a { overflow-wrap: break-word; }
+}
+@media (prefers-reduced-motion: reduce) { .pulse-dot { animation: none; } }
